@@ -1,0 +1,35 @@
+.info-evento{
+    margin-left: 4.5rem;
+}
+
+.info-evento h4{
+    font-size: 1.5rem;
+}
+
+button{
+    margin-top:1.5rem;
+}
+
+#enlace-chat{
+    padding: 0.5rem;
+    background-color:aqua;
+    width:10rem;
+    text-align:center;
+    border-radius:4px;
+}
+
+#enlace-chat:hover{
+    font-size:1.3rem;
+}
+
+#titulo,#descripcion,#direccion{
+    width:40vw;
+}
+
+@media(max-width:780px){
+
+    .info-evento{
+        margin-left:2.5rem;
+    }
+
+}
