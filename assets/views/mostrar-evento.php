@@ -1,3 +1,22 @@
+<?php
+
+    include_once "../conexion/conexion.php";
+    include_once '../config/parameters.php';
+
+    session_start();
+
+    if(!isset($_SESSION['id'])){
+            header("Location: ../../index.php");
+    }
+
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
+    }else{
+        header('Location:../../index.php');
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,16 +32,10 @@
 </head>
 <?php
 
-    include_once("../conexion/conexion.php");
-    include_once '../../config/parameters.php.';
+    
     include_once './cabecera.php';
-    session_start();
 
-    if(isset($_GET['id'])){
-        $id = $_GET['id'];
-    }else{
-        header('Location:'.base_ulr.'index.php');
-    }
+    
 
 
     //Coge la info del evento
@@ -170,17 +183,19 @@
                 var parametros = {
                     "id_evento" : <?php echo $_GET['id'];?>
                 }
-                $.ajax({
+                if(confirm("¿Seguro que quieres eliminar este evento?")){
+                    $.ajax({
                         data: parametros,
                         url: '../ajax/borrarEvento.php',
                         type: 'post',
                         success: function(result){
                             console.log(result);
                             alert("Has borrado este evento");
-                            window.location.reload();
+                            window.location.href="../../index.php";
                         }
                     })
-                
+                }
+                              
             })
 
             $("#editar").click(function(){

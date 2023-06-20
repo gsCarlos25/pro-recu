@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-06-2023 a las 12:40:34
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 8.1.10
+-- Tiempo de generación: 19-06-2023 a las 23:47:01
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,7 +32,14 @@ CREATE TABLE `amistad` (
   `usuario1_id` int(11) DEFAULT NULL,
   `usuario2_id` int(11) DEFAULT NULL,
   `fecha_amistad` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `amistad`
+--
+
+INSERT INTO `amistad` (`id`, `usuario1_id`, `usuario2_id`, `fecha_amistad`) VALUES
+(4, 3, 3, '2023-06-10 14:23:26');
 
 -- --------------------------------------------------------
 
@@ -44,7 +51,7 @@ CREATE TABLE `deporte` (
   `id` int(3) NOT NULL,
   `nombre` varchar(25) NOT NULL,
   `imagen` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `deporte`
@@ -75,7 +82,7 @@ CREATE TABLE `evento` (
   `id_usuario` int(11) NOT NULL,
   `direccion` varchar(50) NOT NULL,
   `descripcion` varchar(300) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `evento`
@@ -85,7 +92,9 @@ INSERT INTO `evento` (`id`, `deporte`, `n_personas`, `fecha`, `titulo`, `id_usua
 (1, 1, 3, '2022-12-14', 'Pachanga futbol', 1, 'Granada', 'Necesitamos gente para un partido en granada'),
 (2, 2, 3, '2022-12-16', 'Partido de basket', 2, 'Granada', 'Vente y juega con nosotros somos una peña'),
 (3, 1, 11, '2023-05-26', 'Pruebaaa', 3, 'Calicasas', 'Pruebaprueba'),
-(4, 6, 4, '2023-11-05', 'FIESTA GORDA', 3, 'CAMPO', 'FIESTAAAAAAAAA gorda la que se va a liar loco es iuna locura lo digo en seriooo wooo AJAJAJ cx');
+(4, 6, 4, '2023-11-05', 'FIESTA GORDA', 3, 'CAMPO', 'FIESTAAAAAAAAA gorda la que se va a liar loco es iuna locura lo digo en seriooo wooo AJAJAJ cx'),
+(5, 5, 3, '2023-11-05', 'prueba2', 5, 'Granada', 'Es un partido'),
+(6, 1, 3, '2023-12-01', 'prueba333', 5, 'granada', 'Desc');
 
 -- --------------------------------------------------------
 
@@ -99,7 +108,7 @@ CREATE TABLE `mensajes` (
   `nombre` varchar(25) NOT NULL,
   `mensaje` varchar(255) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `mensajes`
@@ -134,7 +143,9 @@ INSERT INTO `mensajes` (`id`, `id_evento`, `nombre`, `mensaje`, `fecha`) VALUES
 (27, 1, 'asd', 'que tall', '2023-03-04 11:26:08'),
 (28, 1, 'asd', 'Hola +', '2023-03-04 11:42:33'),
 (29, 2, 'asd', 'hola', '2023-03-04 11:42:43'),
-(30, 1, 'jose', 'Holaaa que tal estais pr aqui chat', '2023-06-06 15:49:08');
+(30, 1, 'jose', 'Holaaa que tal estais pr aqui chat', '2023-06-06 15:49:08'),
+(31, 5, 'josett', 'Hola que tal', '2023-06-19 21:09:57'),
+(32, 5, 'josett', 'Como estais', '2023-06-19 21:10:08');
 
 -- --------------------------------------------------------
 
@@ -147,7 +158,16 @@ CREATE TABLE `peticiones_amistad` (
   `remitente_id` int(11) DEFAULT NULL,
   `receptor_id` int(11) DEFAULT NULL,
   `fecha_peticion` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `peticiones_amistad`
+--
+
+INSERT INTO `peticiones_amistad` (`id`, `remitente_id`, `receptor_id`, `fecha_peticion`) VALUES
+(11, 3, 1, '2023-06-10 13:49:33'),
+(12, 3, 2, '2023-06-10 13:49:47'),
+(15, 4, 3, '2023-06-19 18:52:41');
 
 -- --------------------------------------------------------
 
@@ -162,17 +182,21 @@ CREATE TABLE `usuarios` (
   `nom_us` varchar(25) NOT NULL,
   `nombre` varchar(25) NOT NULL,
   `apellidos` varchar(25) NOT NULL,
-  `descripcion` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `descripcion` varchar(255) DEFAULT NULL,
+  `foto` varchar(255) NOT NULL DEFAULT 'img_avatar.png',
+  `tipo` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `correo`, `pass`, `nom_us`, `nombre`, `apellidos`, `descripcion`) VALUES
-(1, 'asd@gmail.com', 'asdfghjK1', 'asd', 'asd', 'asd', ''),
-(2, 'prueba@gmail.com', 'asdfghjK1', 'prueba', 'Jose Antonio', 'Torres', ''),
-(3, 'jose@gmail.com', '12345678Aj', 'jose', 'jose', 'torres', '');
+INSERT INTO `usuarios` (`id`, `correo`, `pass`, `nom_us`, `nombre`, `apellidos`, `descripcion`, `foto`, `tipo`) VALUES
+(1, 'asd@gmail.com', 'asdfghjK1', 'asd', 'asd', 'asd', '', 'img_avatar.png', 0),
+(2, 'prueba@gmail.com', 'asdfghjK1', 'prueba', 'Jose Antonio', 'Torres', '', 'img_avatar.png', 0),
+(3, 'jose@gmail.com', '12345678Aj', 'jose', 'jose', 'torres', '', 'img_avatar.png', 0),
+(4, 'Josee@gmail.com', 'Joseeselmejor1', 'josee', 'josee', 'josee', '', '20230619204803.jpg', 0),
+(5, 'josett@gmail.com', 'Joseeselmejor1', 'josett', 'jose', 'torres', '', '20230619222521.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -184,7 +208,7 @@ CREATE TABLE `usuario_apuntado` (
   `id` int(5) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_evento` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario_apuntado`
@@ -192,7 +216,8 @@ CREATE TABLE `usuario_apuntado` (
 
 INSERT INTO `usuario_apuntado` (`id`, `id_usuario`, `id_evento`) VALUES
 (32, 3, 2),
-(39, 3, 1);
+(39, 3, 1),
+(42, 5, 1);
 
 --
 -- Índices para tablas volcadas
@@ -260,7 +285,7 @@ ALTER TABLE `usuario_apuntado`
 -- AUTO_INCREMENT de la tabla `amistad`
 --
 ALTER TABLE `amistad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `deporte`
@@ -272,31 +297,31 @@ ALTER TABLE `deporte`
 -- AUTO_INCREMENT de la tabla `evento`
 --
 ALTER TABLE `evento`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `peticiones_amistad`
 --
 ALTER TABLE `peticiones_amistad`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario_apuntado`
 --
 ALTER TABLE `usuario_apuntado`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- Restricciones para tablas volcadas

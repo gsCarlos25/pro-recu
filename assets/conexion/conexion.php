@@ -10,10 +10,10 @@
   // local
 
 
-  $host_name = 'localhost';
-  $database = 'application';
-  $user_name = 'root';
-  $password = '';
+  $host_name = 'fdb1029.awardspace.net';
+  $database = '4328807_application';
+  $user_name = '4328807_application';
+  $password = 'Joseycarlos#1';
 
   $conn = mysqli_connect($host_name, $user_name, $password, $database);
 

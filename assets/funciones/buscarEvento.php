@@ -1,3 +1,13 @@
+<?php
+    require_once '../config/parameters.php';
+    session_start();
+    include_once("../conexion/conexion.php");
+
+
+    $deporte = $_POST['deporte'];
+    
+?>
+
 <head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../styles/index.css" type="text/css">
@@ -7,17 +17,16 @@
 
 <?php
 
-require_once '../../config/parameters.php';
-session_start();
-include_once("../conexion/conexion.php");
 include_once ('../views/cabecera.php');
-$deporte = $_POST['deporte'];
 
-if($deporte == '0' ){
-    header("location:".base_url."/index.php");
-}else{
 
-    $sql = "SELECT * FROM evento WHERE deporte = $deporte";
+
+    if($deporte == '0' ){
+        $sql = "SELECT * FROM evento";
+    }else{
+        $sql = "SELECT * FROM evento WHERE deporte = $deporte";
+    }
+    
     $resultado = $conn->query($sql);
     if(mysqli_num_rows($resultado) == 0){
         echo "<h1 class='eventos-disponibles'>Lo sentimos pero en estos momentos no hay eventos disponibles</h1>";
@@ -39,7 +48,7 @@ if($deporte == '0' ){
         echo '</div>';
     }
 
-}
+
 
 
 ?>

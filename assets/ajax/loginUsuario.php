@@ -20,19 +20,24 @@
         //No existe
         
         $array_devolver['error']="El usuario no existe.";
-        ?><script>alert("El usuario no existe.");</script>
-        <?php
+        
     }else{
         //Existe
         $usuario = $resUsuario->fetch_array();
-        if($usuario['pass'] == $_POST['pass']){
-            $_SESSION['id'] = $usuario['id'];
-            $array_devolver['redirect']= '../../index.php';  
-            $array_devolver['ok']= true;
+        if($usuario['tipo'] != 2){
+            if($usuario['pass'] == $_POST['pass']){
+            
+                $_SESSION['id'] = $usuario['id'];
+                $_SESSION['tipo'] = $usuario['tipo'];
+                $array_devolver['redirect']= '../../index.php';  
+                $array_devolver['ok']= true;
+            }else{
+                $array_devolver['error']="El usuario y la contraseña no coinciden.";
+            }
         }else{
-            $array_devolver['error']="El usuario y la contraseña no coinciden.";
-            ?><script>alert("El usuario y la contraseña no coinciden.");</script><?php
+            $array_devolver['error']="Este usuario ha sido baneado";
         }
+        
 
     }
 

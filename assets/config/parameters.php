@@ -1,5 +1,5 @@
 <?php
 
-define("base_url", "http://localhost/application");
+define("base_url", "http://localhost/pro-recu-main");
 
 ?>

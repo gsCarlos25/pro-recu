@@ -1,6 +1,6 @@
 <?php
 include_once("../conexion/conexion.php");
-include_once '../../config/parameters.php';
+include_once '../config/parameters.php';
 
 session_start();
 

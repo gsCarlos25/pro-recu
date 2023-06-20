@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-if(!$_SESSION['id']){
-    header("Location: assets/views/login.php");
+if(!isset($_SESSION['id'])){
+        header("Location: ../../index.php");
 }
 
 ?>
@@ -25,12 +25,13 @@ if(!$_SESSION['id']){
 </head>
 <body>
     <?php
-    require_once '../../config/parameters.php';
+    require_once '../config/parameters.php';
     require_once './cabecera.php';
     ?>
     <div class="perfil">
-        <h1>Perfil</h1>
+        
         <div class="contenido">
+            
             <?php 
             require_once '../funciones/datos.php';
             $nom_us = $datos['nom_us'];
@@ -38,6 +39,11 @@ if(!$_SESSION['id']){
             $apellidos = $datos['apellidos'];
             $descripcion = $datos['descripcion'];
             $contrasena = $datos['pass'];
+            ?>
+            <div>
+                <img src="../img/<?=$datos['foto']?>" alt="Foto de perfil" id="fotoPerfilUsuario">
+            </div>
+            <?php
         echo "      <div class='des'>
                         <div class='lista'>
                         <li class='datosUs'>
@@ -154,7 +160,7 @@ $( document ).ready(function() {
                     }else{
                         for(i=0;i<result.length;i++){
                             let elemento = $( "<li class='amigo list-unstyled'></li>" );
-                            let elemento2 = $("<div class='imagen-usuario'><img src='https://bootdey.com/img/Content/avatar/avatar7.png' class='imagen-perfil'></div>");
+                            let elemento2 = $("<div class='imagen-usuario'><img src='../img/"+result[i]['foto']+"' class='imagen-perfil'></div>");
                             let elemento3 = $("<div class='nombre-usuario'>"+result[i]["nombre"]+"</div>");
                             let elemento4 = $("<button class='btn btn-primary' onClick='anadirAmigo("+result[i]["id"]+")' >Añadir</button>");
                             elemento.append(elemento2);

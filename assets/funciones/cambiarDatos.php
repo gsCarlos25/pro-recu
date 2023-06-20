@@ -1,9 +1,7 @@
 <?php
 
-
-
 include_once("../conexion/conexion.php");
-include_once '../../config/parameters.php';
+include_once '../config/parameters.php';
 session_start();
 
 $tipo = $_GET['tipo'];
@@ -24,3 +22,5 @@ if($tipo == 'contrasena'){
 
 
 header('location:'.base_url.'/assets/views/perfil.php');
+
+?>

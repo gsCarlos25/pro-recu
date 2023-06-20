@@ -4,6 +4,8 @@
 
     $id_evento = $_POST['id_evento'];
 
+    $sql2 = "DELETE FROM usuario_apuntado WHERE id_evento = $id_evento";
+    $res2 = $conn->query($sql2);
     $sql = "DELETE FROM `evento` WHERE `evento`.`id` = $id_evento";
     $res = $conn->query($sql);
 

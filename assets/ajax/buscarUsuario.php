@@ -12,7 +12,8 @@
     while($fila = $res->fetch_assoc()){
         $arrayUsuario = [
             "id" => $fila['id'],
-            "nombre" => $fila['nom_us']
+            "nombre" => $fila['nom_us'],
+            'foto' => $fila['foto']
         ];
 
         $arrayRes[] = $arrayUsuario;

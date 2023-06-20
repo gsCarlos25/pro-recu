@@ -1,12 +1,22 @@
 <?php
 
-    include_once("../conexion/conexion.php");
+include_once '../conexion/conexion.php';
+require_once '../config/parameters.php';
+session_start();
 
-    $consulta = "SELECT * FROM deporte";
-    $resDep = $conn->query($consulta);
+if(!isset($_SESSION['id'])){
+    header("Location: login.php");
+}
+
+$consulta = "SELECT * FROM deporte";
+$resDep = $conn->query($consulta);
+
+?>
 
     
-    ?>
+
+    
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,8 +35,8 @@
 </head>
 <body>
     <?php
-        include_once '../../config/parameters.php';
-        include_once("./cabecera.php");
+        
+        include_once "./cabecera.php";
     ?>
     <h1>Busca eventos filtrador por el deporte</h1>
     <form id="form-buscar" method="post" action="../funciones/buscarEvento.php">
@@ -38,7 +48,7 @@
                 <?php endwhile; ?>
             </select>
         </div>
-            <input type="submit" class="sbumit" value="Buscar">
+            <input type="submit" class="submit" value="Buscar">
     </form>
     
 </body>

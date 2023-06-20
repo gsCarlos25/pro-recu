@@ -5,14 +5,13 @@
     $consulta = "SELECT * FROM deporte";
     $resDep = $conn->query($consulta);
 
-    if(!$_SESSION['id']){
-        header("Location: assets/views/login.php");
+    if(!isset($_SESSION['id'])){
+        header("Location: login.php");
     };
     
-    require_once '../../config/parameters.php';
+    require_once '../config/parameters.php';
     require_once './cabecera.php';
 
-    
     ?>
 
 
@@ -30,27 +29,47 @@
     <link rel="icon" type="image/x-icon" href="../favicon/icono.ico" />
     <title>Crear Evento</title>
 </head>
-    
-    <div class="form">
-        <form method="post" class="form" id="formEvento">
-            <?php
-            $fecha_actual = date('Y-m-d');
-            $fecha_maxima = date("Y-m-d",strtotime($fecha_actual."+ 1 Year"));
-            ?>
-            <input type="text" name="titulo" id="titulo" placeholder="Título" maxlength="20">
-            <input type="number" name="n_personas" id="n_personas" min="1" max="21" placeholder="Nº de personas">
-            <select name="deporte" id="deporte">
-                <option value=0>Selecciona un deporte</option>
-                <?php while($row = mysqli_fetch_array($resDep)): ?>
-                <option value=<?= $row['id'] ?>><?=$row['nombre']?></option>
-                <?php endwhile; ?>
-            </select>
-            <input type="date" name="fecha" id="fecha" min=<?php echo $fecha_actual?> max="<?php echo $fecha_maxima?>">
-            <input type="text" name="direccion" id="direccion" placeholder="Deireccion">
-            <textarea name="descripcion" id="descripcion" cols="30" rows="7" maxlength="300" placeholder="Descripcion dedl evento"></textarea>
-            <input type="submit" value="Crear" class="submit">
-        </form>
-    </div>
+
+<div class="containerr">
+    <h1>Crear evento</h1>
+    <form id="formEvento">
+    <?php
+        $fecha_actual = date('Y-m-d');
+        $fecha_maxima = date("Y-m-d",strtotime($fecha_actual."+ 1 Year"));
+    ?>
+      <div class="form-group">
+        <label for="titulo">Titulo:</label>
+        <input type="text" id="titulo" name="titulo" maxlength="20">
+      </div>
+      <div class="form-group">
+        <label for="n_personas">Numero de personas:</label>
+        <input type="number" id="n_personas" name="n_personas" min="1" max="21">
+      </div>
+      <div class="form-group">
+        <label for="deporte">Deporte:</label>
+        <select id="deporte" name="deporte" required>
+            <option value=0>Seleccione...</option>
+            <?php while($row = mysqli_fetch_array($resDep)): ?>
+            <option value=<?= $row['id'] ?>><?=$row['nombre']?></option>
+            <?php endwhile; ?>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" name="fecha"  min=<?php echo $fecha_actual?> max="<?php echo $fecha_maxima?>">
+      </div>
+      <div class="form-group">
+        <label for="direccion">Direccion:</label>
+        <input type="text" id="direccion" name="direccion">
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripcion:</label>
+        <textarea name="descripcion" id="descripcion" cols="30" rows="7" maxlength="300" placeholder="Descripcion del evento"></textarea>
+      </div>
+      
+      <input type="submit" value="Crear" class>
+    </form>
+  </div>
 
 
     <script>
@@ -60,9 +79,6 @@
 
                 var valido = true;
                 var errores = [];
-                var cList = $(".erroresForm");
-                cList.html("");
-                $(".msg_error").hide("slow");
 
 
                 var autocomplete = new google.maps.places.Autocomplete((document.getElementById("direccion")));
@@ -97,27 +113,15 @@
                             console.log(result);
                             result = JSON.parse(result);
                             if(result.ok){
-                                $(".msg_error").show("slow");
-                                var li = $('<li/>').
-                                    addClass('li-error')
-                                    .text("Iniciando sesión")
-                                    .appendTo(cList);
                                     window.location.href = result.redirect;
                             }else if(result.error != ""){
-                                $(".msg_error").show("slow");
-                                var li = $('<li/>')
-                                    .addClass('li-error')
-                                    .text(result.error)
-                                    .appendTo(cList);
+                                alert(result.error);
                             }
                         }
                     })
                 }else{
                     $.each(errores, function(i){
-                        var li = $('<li/>').
-                                    addClass('li-error')
-                                    .text(errores[i])
-                                    .appendTo(cList);
+                        alert(errores[i]);
                     })
                 }
                 $(".msg_error").show("slow");

@@ -1,16 +1,22 @@
+<?php
+
+include_once '../conexion/conexion.php';
+include_once '../config/parameters.php';
+
+session_start();
+
+if(!isset($_SESSION['id'])){
+    header("Location: login.php");
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php
-
-        session_start();
-        include_once("../conexion/conexion.php");
-        include_once '../../config/parameters.php';
         include_once './cabecera.php';
-
-        if(!$_SESSION['id']){
-            header("Location: assets/views/login.php");
-        }
 
         $consulta = "SELECT nom_us FROM usuarios WHERE id=".$_SESSION['id'];
         $resnombre = $conn->query($consulta);

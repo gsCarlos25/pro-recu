@@ -1,3 +1,14 @@
+<?php
+
+    session_start();
+
+    if(isset($_SESSION['id'])){
+            header("Location: ../../index.php");
+    }
+    
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,20 +20,34 @@
     <link rel="stylesheet" href="../styles/index.css" type="text/css"/>
     <link rel="icon" type="image/x-icon" href="../favicon/icono.ico" />
     <title>Login</title>
-    <?php
-
-    session_start();
-
-    if(isset($_SESSION['id'])){
-            header("Location: ../../index.php");
-    }
     
-    ?>
 
     
 </head>
 <body>
-    <div class="form" action>
+    <div class="container">
+        <h1>Bienvenido a MeetSport</h1>
+        <form action="" method="post" class="form" id="formLogin">
+            <div class="form-group" style="text-align: center;">
+                <img src="../favicon/icono.ico" alt="logo" style="height:15vh; width:15vh;">
+            </div>
+            <div class="form-group">
+                <label for="usuario">Nombre de usuario:</label>
+                <input type="text" id="logUs" name="usuario">
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="logPass" name="password">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Iniciar Sesión">
+            </div>
+            <a href="registro.php" >¿No tienes cuenta?Pulsa aqui para registrarte</a>
+        </form>
+    </div>
+
+
+    <!--<div class="form" action>
         
         <form action="" method="post" class="form">
             <img src="../favicon/icono.ico" alt="logo" style="height:15vh; width:15vh;">
@@ -32,12 +57,13 @@
             <button type="button" id="botLog" class="submit">Iniciar sesión</button>
             <a href="registro.php" >¿No tienes cuenta?Pulsa aqui para registrarte</a>
         </form>
-    </div>
+    </div>-->
 
     <script type="text/javascript">
 
         $(document).ready(function(){
-            $("#botLog").click(function(){
+            $("#formLogin").submit(function(e){
+                e.preventDefault();
                 var valido = true;
                 var errores = [];
 
@@ -72,29 +98,15 @@
                             console.log(result);
                             result = JSON.parse(result);
                             if(result.ok){
-                                $(".msg_error").show("slow");
-                                var li = $('<li/>').
-                                    addClass('li-error')
-                                    .text("Iniciando sesión")
-                                    .appendTo(cList);
                                     window.location.href = result.redirect;
                             }else if(result.error != ""){
-                                $(".msg_error").show("slow");
-                                var li = $('<li/>').
-                                    addClass('li-error')
-                                    .text(result.error)
-                                    .appendTo(cList);
-                                    alert(result.error)
+                                alert(result.error);
                             }
                         }
                     })
                 }else{
-                    $(".msg_error").show("slow");
                     $.each(errores, function(i){
-                        var li = $('<li/>').
-                                    addClass('li-error')
-                                    .text(errores[i])
-                                    .appendTo(cList);
+                        alert(errores[i]);
                     })
                 }
             });

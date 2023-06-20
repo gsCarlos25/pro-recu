@@ -1,11 +1,16 @@
-#padreEventos{
-    padding: 5em;
+#padreEventos, #padreEventos2{
+    padding: 1em 3em;
     width: 100%;
-    height: 80vh;
+    height: 30vh;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+.padres{
+    margin: 15px;
+    padding: 2em;
 }
 
 

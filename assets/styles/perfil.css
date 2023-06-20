@@ -105,11 +105,11 @@ input{
     margin: 0.1rem;
     margin-left: 0;
     height: 94%;
-    width: 33%;
+    max-width: 33%;
 }
 
 .imagen-perfil{
-    width: 99%;
+    max-width: 99%;
     height: 99%;
     border-radius: 50%;
 }
@@ -179,6 +179,12 @@ input{
 
 .modal-body{
     color:white;
+}
+
+#fotoPerfilUsuario{
+    height: 150px;
+    width: 150px;
+    border-radius: 75px;
 }
 
 .des{
